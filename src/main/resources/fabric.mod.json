@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+
+  "name": "HexHex",
+  "description": "Gifting the player unique abilities that are definitly not exploits",
+  "authors": [ "Elias*" ],
+  "contact": {
+    "sources": "https://github.com/EliasStar/HexHex",
+    "issues": "https://github.com/EliasStar/HexHex/issues"
+  },
+  "license": "GPL-3.0-or-later",
+  "icon": "assets/hexhex/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [ "eliasstar.hexhex.ClientInitializer" ]
+  },
+  "mixins": [ "hexhex.mixins.json" ],
+
+  "depends": {
+    "minecraft": "${minecraft_version}",
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": ">=${fabric_api_version}"
+  }
+}

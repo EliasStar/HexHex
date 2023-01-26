@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "package": "eliasstar.hexhex.mixin",
+  "client": [
+    "BlockBehaviourMixin",
+    "BlockStateBaseMixin",
+    "InventoryScreenMixin",
+    "OptionInstanceMixin"
+  ]
+}
