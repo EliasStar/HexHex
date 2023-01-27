@@ -1,20 +1,26 @@
 package eliasstar.hexhex.feature;
 
+import java.util.Optional;
+
 import eliasstar.hexhex.gui.base.BaseScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 
 public class Feature {
 
-    protected final Minecraft client;
     protected final String name;
 
     protected boolean enabled;
+    protected Optional<Minecraft> client;
 
     protected Feature(String name, boolean enabled) {
-        this.client = Minecraft.getInstance();
         this.name = name;
         this.enabled = enabled;
+        this.client = Optional.ofNullable(Minecraft.getInstance());
+    }
+
+    public void queryMinecraftClient() {
+        client = Optional.ofNullable(Minecraft.getInstance());
     }
 
     public void toggle() {

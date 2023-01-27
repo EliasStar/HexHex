@@ -14,10 +14,13 @@ public abstract class SaveableScreen extends BaseScreen {
     protected void init() {
         super.init();
 
-        addRenderableWidget(new Button(xEnd - 85, yStart + 4, 40, 20, Component.literal("Save"), button -> {
+        addRenderableWidget(Button.builder(Component.literal("Save"), b -> {
             save();
             minecraft.setScreen(parent);
-        }));
+        })
+                .pos(xEnd - 85, yStart + 4)
+                .width(40)
+                .build());
     }
 
     protected abstract void save();

@@ -1,7 +1,7 @@
 package eliasstar.hexhex.gui;
 
-import eliasstar.hexhex.ClientInitializer;
 import eliasstar.hexhex.feature.Feature;
+import eliasstar.hexhex.feature.Features;
 import eliasstar.hexhex.gui.base.BaseScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,20 +18,26 @@ public class MainScreen extends BaseScreen {
         super.init();
 
         var row = 0;
-        for (var feature : ClientInitializer.FEATURES) {
+        for (var feature : Features.ALL) {
             var y = yStart + 35 + 25 * row++;
 
-            addRenderableWidget(new Button(xStart + 10, y, 178, 20, enabledText(feature), button -> {
+            addRenderableWidget(Button.builder(enabledText(feature), button -> {
                 feature.toggle();
                 button.setMessage(enabledText(feature));
-            }));
+            })
+                    .pos(xStart + 10, y)
+                    .width(178)
+                    .build());
 
             if (feature instanceof Feature.WithConfigScreen featureWithConfig) {
                 var configScreen = featureWithConfig.getConfigScreen();
                 configScreen.setParent(this);
 
-                addRenderableWidget(new Button(xEnd - 60, y, 50, 20, Component.literal("Config"),
-                        button -> minecraft.setScreen(configScreen)));
+                addRenderableWidget(
+                        Button.builder(Component.literal("Config"), button -> minecraft.setScreen(configScreen))
+                                .pos(xEnd - 60, y)
+                                .width(50)
+                                .build());
             }
         }
     }

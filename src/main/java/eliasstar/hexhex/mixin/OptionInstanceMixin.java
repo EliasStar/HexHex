@@ -6,10 +6,10 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import eliasstar.hexhex.mixin_interfaces.ForceableSimpleOption;
+import eliasstar.hexhex.mixin_interfaces.ForceableOptionInstance;
 
 @Mixin(OptionInstance.class)
-public abstract class OptionInstanceMixin<T> implements ForceableSimpleOption<T> {
+public abstract class OptionInstanceMixin<T> implements ForceableOptionInstance<T> {
 
     @Shadow
     T value;

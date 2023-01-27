@@ -1,6 +1,6 @@
 package eliasstar.hexhex.mixin_interfaces;
 
-public interface ForceableSimpleOption<T> {
+public interface ForceableOptionInstance<T> {
 
     public T get();
 

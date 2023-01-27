@@ -1,7 +1,7 @@
 package eliasstar.hexhex.feature.nightvision;
 
 import eliasstar.hexhex.feature.Feature;
-import eliasstar.hexhex.mixin_interfaces.ForceableSimpleOption;
+import eliasstar.hexhex.mixin_interfaces.ForceableOptionInstance;
 
 public class NightVision extends Feature implements Feature.WithConfigScreen {
 
@@ -24,12 +24,14 @@ public class NightVision extends Feature implements Feature.WithConfigScreen {
     }
 
     @Override
+    @SuppressWarnings({ "unchecked", "resource" })
     public void toggle() {
+        if (!client.isPresent())
+            return;
+
         super.toggle();
 
-        @SuppressWarnings("unchecked")
-        var gamma = (ForceableSimpleOption<Double>) (Object) client.options.gamma();
-
+        var gamma = (ForceableOptionInstance<Double>) (Object) client.get().options.gamma();
         if (enabled) {
             oldGamma = gamma.get();
             gamma.forceSet(brightness);

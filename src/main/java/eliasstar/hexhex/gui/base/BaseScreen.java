@@ -43,8 +43,10 @@ public class BaseScreen extends Screen {
         xEnd = xStart + BACKGROUND_WIDTH;
         yEnd = yStart + BACKGROUND_HEIGHT;
 
-        addRenderableWidget(new Button(xEnd - 45, yStart + 4, 40, 20, Component.literal("Back"),
-                button -> minecraft.setScreen(parent)));
+        addRenderableWidget(Button.builder(Component.literal("Back"), b -> minecraft.setScreen(parent))
+                .pos(xEnd - 45, yStart + 4)
+                .width(40)
+                .build());
     }
 
     @Override

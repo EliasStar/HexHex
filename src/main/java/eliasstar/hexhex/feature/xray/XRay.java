@@ -2,10 +2,11 @@ package eliasstar.hexhex.feature.xray;
 
 import java.util.HashSet;
 import java.util.Set;
-import net.minecraft.core.Registry;
+
+import eliasstar.hexhex.feature.Feature;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import eliasstar.hexhex.feature.Feature;
 
 public class XRay extends Feature implements Feature.WithConfigScreen {
 
@@ -17,24 +18,26 @@ public class XRay extends Feature implements Feature.WithConfigScreen {
         super("X-Ray", false);
     }
 
+    @SuppressWarnings("resource")
     public boolean addBlock(String identifier) {
         var id = ResourceLocation.tryParse(identifier);
-        if (!Registry.BLOCK.containsKey(id))
+        if (!BuiltInRegistries.BLOCK.containsKey(id))
             return false;
 
-        blocks.add(Registry.BLOCK.get(id));
+        blocks.add(BuiltInRegistries.BLOCK.get(id));
 
-        if (enabled)
-            client.levelRenderer.allChanged();
+        if (enabled && client.isPresent())
+            client.get().levelRenderer.allChanged();
 
         return true;
     }
 
+    @SuppressWarnings("resource")
     public void removeBlock(Block block) {
         blocks.remove(block);
 
-        if (enabled)
-            client.levelRenderer.allChanged();
+        if (enabled && client.isPresent())
+            client.get().levelRenderer.allChanged();
     }
 
     public boolean isWhitelisted(Block block) {
@@ -46,11 +49,15 @@ public class XRay extends Feature implements Feature.WithConfigScreen {
     }
 
     @Override
+    @SuppressWarnings("resource")
     public void toggle() {
+        if (!client.isPresent())
+            return;
+
         super.toggle();
 
-        client.smartCull = !enabled;
-        client.levelRenderer.allChanged();
+        client.get().smartCull = !enabled;
+        client.get().levelRenderer.allChanged();
     }
 
     @Override

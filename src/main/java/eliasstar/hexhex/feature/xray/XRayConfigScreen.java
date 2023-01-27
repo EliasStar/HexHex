@@ -27,12 +27,15 @@ public class XRayConfigScreen extends BaseScreen {
         blockWidget = addRenderableWidget(
                 new EditBox(font, xStart + 10, yStart + 41, 192, 18, Component.empty()));
 
-        addRenderableWidget(new Button(xEnd - 45, yStart + 40, 35, 20, Component.literal("Add"), button -> {
+        addRenderableWidget(Button.builder(Component.literal("Add"), button -> {
             if (XRay.INSTANCE.addBlock(blockWidget.getValue())) {
                 blockWidget.setValue("");
                 updateRemoveEffectWidgets();
             }
-        }));
+        })
+                .pos(xEnd - 45, yStart + 40)
+                .width(35)
+                .build());
 
         updateRemoveEffectWidgets();
     }
@@ -53,10 +56,13 @@ public class XRayConfigScreen extends BaseScreen {
             var x = counter % 2 == 0 ? xStart + 10 : xEnd - 120;
             var y = yStart + 65 + 25 * (counter / 2);
 
-            removeBlockWidgets.add(addRenderableWidget(new Button(x, y, 110, 20, block.getName(), button -> {
+            removeBlockWidgets.add(addRenderableWidget(Button.builder(block.getName(), button -> {
                 XRay.INSTANCE.removeBlock(block);
                 updateRemoveEffectWidgets();
-            })));
+            })
+                    .pos(x, y)
+                    .width(110)
+                    .build()));
 
             counter++;
         }
